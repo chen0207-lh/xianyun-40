@@ -104,32 +104,29 @@ export default {
         });
         return;
       }
-
-      this.$axios({
-        url: "/captchas",
-        method: "POST",
-        data: {
-          tel: this.form.username
-        }
-      }).then(res => {
-        const { code } = res.data;
-        this.$confirm(`验证码为${code}`, "提示", {
-          confirmButtonText: "确定",
-          showCancelButton: false,
-          type: "success"
-        });
+      this.$store.dispatch("user/setCaptcha", this.form.username).then(res => {
+        // 方法1，因为验证码是模拟的所以可以直接输出给用户
+        this.$message.success('验证码为：000000')
+        // 方法2
+        // const { code } = res.data;
+        // this.$confirm(`验证码为${code}`, "提示", {
+        //   confirmButtonText: "确定",
+        //   showCancelButton: false,
+        //   type: "success"
+        // });
       });
     },
 
     // 注册
     handleRegSubmit() {
-      console.log(this.form);
-      this.$axios({
-        url: "/accounts/register",
-        method: "POST",
-        data: this.form
-      }).then(res => {
-        console.log(res);
+      this.$refs["form"].validate(valid => {
+        if (valid) {
+          // 数据重构，把第二次输入的密码删除
+          const { checkPassword, ...props } = this.form;
+          this.$store.dispatch("user/registerForm", props).then(res => {
+            this.$message.success("注册成功")
+          });
+        }
       });
     }
   }

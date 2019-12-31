@@ -14,7 +14,7 @@ export const mutations = {
 // 异步修改state的数据
 // 存放公共的请求函数，并且该函数可能会修改state的数据(不需要修改的也可以)
 export const actions = {
-  login(store,data) {
+  login(store, data) {
     // console.log(store)
     // store中的参数有dispatch commit getters rootGetters rootState
     // 发送请求获取用户信息
@@ -24,12 +24,31 @@ export const actions = {
       method: "POST",
       data
     }).then(res => {
-    //   console.log(res);
-    // 登录成功后返回上一个页面
-    this.$router.back()
-    // 调用user下的commit的方法
+      //   console.log(res);
+      // 登录成功后返回上一个页面
+      this.$router.back()
+      // 调用user下的commit的方法
       store.commit('setUserInfo', res.data)
       return true
+    });
+  },
+  setCaptcha(store, data) {
+    return this.$axios({
+      url: "/captchas",
+      method: "POST",
+      data: {
+        tel: data
+      }
+    })
+  },
+  // 注册
+  registerForm(store, data) {
+    return this.$axios({
+      url: "/accounts/register",
+      method: "POST",
+      data
+    }).then(res => {
+      console.log(res)
     });
   }
 }
