@@ -53,11 +53,14 @@ export default {
   data() {
     return {
       flightsData: {
-        info: {}
+        info: {},
+        options:{},
+        flights: []
       }, // 航班总数据
       cacheFlightsData:{
         info:{},
-        options:{}
+        options:{},
+        flights: []
       },
       //   dataList: [], // 航班列表数据，用于循环flightsItem组件，单独出来是因为要分页
       pageIndex: 1, // 当前页码
