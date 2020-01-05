@@ -175,7 +175,13 @@ export default {
         data
       }).then(res => {
         this.$message.success("提交成功");
-        
+        const { id } = res.data.data;
+        this.$router.push({
+          path: "pay",
+          query: {
+            id
+          }
+        });
       });
     }
   }
