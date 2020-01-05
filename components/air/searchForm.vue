@@ -237,6 +237,8 @@ export default {
         // 带参数传递跳转过去
         query: this.from
       });
+      // 把数据存储到store中
+      this.$store.commit('air/setHistory',this.from)
     }
   },
   mounted() {}

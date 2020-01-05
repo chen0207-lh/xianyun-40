@@ -31,7 +31,7 @@
       </el-col>
       <el-col :span="4">
         <!--  @change="handleCompany" -->
-        <el-select size="mini" v-model="company" placeholder="航空公司">
+        <el-select size="mini" v-model="company" placeholder="航空公司" >
           <el-option
             v-for="(item,index) in data.options.company"
             :key="index"
@@ -58,7 +58,7 @@
       <el-button type="primary" round plain size="mini" @click="handleFiltersCancel">撤销</el-button>
     </div>
     <!-- 因为使用computed计算属性会返回一个值 如果不在本页面调用就不能运行，所以就随便调用下为了让函数执行起来 -->
-    <span>{{filterData}}</span>
+    <!-- <span>{{filterData}}</span> -->
   </div>
 </template>
 
@@ -123,7 +123,7 @@ export default {
     }
   },
   methods: {
-    // 选择单个
+    // // 选择单个
     // // 选择机场时候触发
     // handleAirport(value) {
     //   // 过滤后的数组
@@ -144,7 +144,7 @@ export default {
     //   this.$emit("setDataList", arr);
     // },
 
-    // // 选择航空公司时候触发
+    // 选择航空公司时候触发
     // handleCompany(value) {
     //   const arr = this.data.flights.filter(v => {
     //     return value === v.airline_name;

@@ -5,12 +5,12 @@
       <div class="flights-content">
         <!-- 过滤条件 -->
         <div>
-          <flightsFilters :data='cacheFlightsData' @setDataList='setDataList'/>
+          <flightsFilters :data="cacheFlightsData" @setDataList="setDataList" />
         </div>
 
         <div>
           <!-- 航班头部布局 -->
-          <flightsListHead />
+          <flightsListHead/>
         </div>
 
         <!-- 航班列表信息   :data="item" 传递数据到flightsItem.vue渲染数据 -->
@@ -34,9 +34,7 @@
       </div>
 
       <!-- 侧边栏 -->
-      <div class="aside">
-        <!-- 侧边栏组件 -->
-      </div>
+      <flightsAside />
     </el-row>
   </section>
 </template>
@@ -47,6 +45,7 @@ import flightsListHead from "@/components/air/flightsListHead.vue";
 // 引入机票列表
 import flightsItem from "@/components/air/flightsItem.vue";
 import flightsFilters from "@/components/air/flightsFilters.vue";
+import flightsAside from "@/components/air/flightsAside.vue";
 import moment from "moment";
 
 export default {
@@ -54,12 +53,12 @@ export default {
     return {
       flightsData: {
         info: {},
-        options:{},
+        options: {},
         flights: []
       }, // 航班总数据
-      cacheFlightsData:{
-        info:{},
-        options:{},
+      cacheFlightsData: {
+        info: {},
+        options: {},
         flights: []
       },
       //   dataList: [], // 航班列表数据，用于循环flightsItem组件，单独出来是因为要分页
@@ -71,7 +70,13 @@ export default {
   components: {
     flightsListHead,
     flightsItem,
-    flightsFilters
+    flightsFilters,
+    flightsAside
+  },
+  watch: {
+    $route() {
+      this.getflightsList();
+    }
   },
   computed: {
     // 计数属性的监听函数内部引用实例属性的变化，一旦属性发生了变化，该函数也会重新计算，并且返回一个新的值
@@ -86,25 +91,41 @@ export default {
   },
   mounted() {
     //   请求获取机票列表页数据
-    this.$axios({
-      url: "/airs",
-      params: this.$route.query //获取到从机票首页从URL路径传递过来的五个 参数
-    }).then(res => {
-      console.log(res);
-      this.flightsData = res.data;
-      this.cacheFlightsData={...res.data}
-      // 页数的总数量
-      this.total = this.flightsData.total;
-    });
+    this.getflightsList();
+    // this.$axios({
+    //   url: "/airs",
+    //   params: this.$route.query //获取到从机票首页从URL路径传递过来的五个 参数
+    // }).then(res => {
+    //   console.log(res);
+    //   this.flightsData = res.data;
+    //   this.cacheFlightsData={...res.data}
+    //   // 页数的总数量
+    //   this.total = this.flightsData.total;
+    // });
   },
   methods: {
+    getflightsList() {
+      //   请求获取机票列表页数据
+      this.$axios({
+        url: "/airs",
+        params: this.$route.query //获取到从机票首页从URL路径传递过来的五个 参数
+      }).then(res => {
+        console.log(res);
+        this.flightsData = res.data;
+        this.cacheFlightsData = { ...res.data };
+        // 页数的总数量
+        this.total = this.flightsData.total;
+        // 分页初始化值为1
+        this.pageIndex = 1;
+      });
+    },
     // 根据过滤好的数据修改this.flightsData.flights
     setDataList(arr) {
-      console.log(arr)
+      // console.log(arr);
       // arr就是修改过滤后的数据
-      this.flightsData.flights = arr
+      this.flightsData.flights = arr;
       // 根据过滤好的数据修改总条数的数据
-      this.total = arr.length
+      this.total = arr.length;
     },
     //  切换分页条数时触发
     handleSizeChange(val) {

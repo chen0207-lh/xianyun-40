@@ -32,6 +32,7 @@ export const actions = {
       return true
     });
   },
+  // 获取验证码
   setCaptcha(store, data) {
     return this.$axios({
       url: "/captchas",

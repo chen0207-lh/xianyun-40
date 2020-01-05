@@ -47,7 +47,7 @@
             </el-col>
             <el-col :span="5" class="price">￥{{item.org_settle_price}}</el-col>
             <el-col :span="3" class="choose-button">
-              <el-button type="warning" size="mini">选定</el-button>
+              <el-button type="warning" size="mini" @click="handleLinkOrder(data.id,item.seat_xid)">选定</el-button>
               <p>剩余：{{item.discount}}</p>
             </el-col>
           </el-row>
@@ -102,6 +102,18 @@ export default {
       let min = dis % 60;
       // 返回
       return `${hours}时${min}分`;
+    }
+  },
+  methods: {
+    // 点击跳转到机票结算页面
+    handleLinkOrder(id,seat_xid){
+      this.$router.push({
+        path:'order',
+        query:{
+          id,
+          seat_xid
+        }
+      })
     }
   }
 };
