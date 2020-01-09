@@ -60,21 +60,21 @@
 // 封装的搜索
 import searchForm from "@/components/air/searchForm.vue";
 export default {
-  data(){
-    return{
-      sales:[]
-    }
+  data() {
+    return {
+      sales: []
+    };
   },
   components: {
     searchForm
   },
-  mounted () {
+  mounted() {
     this.$axios({
-      url:'/airs/sale'
-    }).then(res=>{
-      console.log(res)
-      this.sales=res.data.data
-    })
+      url: "/airs/sale"
+    }).then(res => {
+      console.log(res);
+      this.sales = res.data.data;
+    });
   }
 };
 </script>
