@@ -12,24 +12,46 @@
           <div>
             <!---->
             <div class="post-item card" v-for="(item,index) in postsList" :key="index">
-              <h4 title="塞班贵？一定是你的打开方式不对！6000块玩转塞班" class="post-title">
+              <h4 :title="`${item.title}`" class="post-title">
                 <a :href="`/post/detail?id=${item.id}`" class>{{item.title}}</a>
               </h4>
               <p class="post-desc">
                 <!-- v-html="`${item.content}`" -->
                 <a :href="`/post/detail?id=${item.id}`" class>{{item.summary}}</a>
               </p>
-              <div class="card-images el-row is-justify-space-between is-align-middle el-row--flex">
+              <div
+                class="card-images el-row is-justify-space-between is-align-middle el-row--flex"
+                v-if="item.images.length>=3"
+              >
                 <a :href="`/post/detail?id=${item.id}`">
-                  <img  :src="`${item.images[0]}`" />
+                  <img :src="`${item.images[0]}`" />
                 </a>
                 <a :href="`/post/detail?id=${item.id}`">
                   <img :src="`${item.images[1]}`" />
                 </a>
                 <a :href="`/post/detail?id=${item.id}`">
-                  <img  :src="`${item.images[2]}`" />
+                  <img :src="`${item.images[2]}`" />
                 </a>
               </div>
+              <div
+                class="card-images card-images1 el-row is-align-middle el-row--flex"
+                v-else-if="item.images.length=2"
+              >
+                <a :href="`/post/detail?id=${item.id}`" class="image1">
+                  <img :src="`${item.images[0]}`" />
+                </a>
+                <a :href="`/post/detail?id=${item.id}`">
+                  <img :src="`${item.images[1]}`" />
+                </a>
+              </div>
+              <!-- justify-content: space-around; -->
+              <div class="card-images " v-else-if="item.images.length=1">
+                <a :href="`/post/detail?id=${item.id}`">
+                  <img :src="`${item.images[0]}`" />
+                </a>
+              </div>
+              <!-- <div class="card-images detail-images" v-else-if="item.images.length=0"></div> -->
+
               <span class="post-info el-row is-justify-space-between el-row--flex">
                 <div class="post-info-left el-row is-align-middle el-row--flex">
                   <span>
@@ -87,8 +109,7 @@ export default {
       postsList: [],
       total: 0,
       pageIndex: 1,
-      pageSize: 5,
-      city: ""
+      pageSize: 5
     };
   },
   mounted() {
@@ -97,7 +118,6 @@ export default {
   methods: {
     handlepostList() {
       const { city } = this.$route.query;
-      console.log(city);
       this.$axios({
         url: "/posts",
         data: { city }
@@ -178,7 +198,9 @@ export default {
     width: 700px;
   }
 }
-
+.post-title:hover {
+  color: orange;
+}
 .post-title {
   padding-bottom: 10px;
   border-bottom: 1px solid #eee;
@@ -275,7 +297,23 @@ export default {
   width: 220px;
   height: 150px;
   display: block;
-  -o-object-fit: cover;
-  object-fit: cover;
 }
+.card-images1{
+.image1{
+ img{
+    margin: 0px;
+ }
+}
+ img{
+    margin-left:20px;
+ } 
+}
+// .card-images2{
+//    padding: 15px 0px;
+//   box-sizing: border-box;
+//   display: flex;
+//   justify-content: space-between;
+//   border-bottom: 1px solid #ccc;
+//   flex-wrap: wrap;
+// }
 </style>

@@ -10,7 +10,7 @@
               <ul>
                 <li v-for="(res,index) in item.children" :key="index">
                   <!-- :href="`post?${item.city}`" -->
-                  <a :href="`post?${res.city}#`" @click="ClickCity(res.city)">
+                  <a href="#" @click="ClickCity(res.city)">
                     <i>{{index+1}}</i>
                     <strong>{{res.city}}</strong>
                     <span>{{res.desc}}</span>

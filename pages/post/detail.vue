@@ -63,6 +63,12 @@ export default {
       console.log(res);
       this.recommend = res.data.data;
     });
+  },
+  methods: {
+    // handleArticle(val){
+    //   console.log(val)
+    //   this.$router.push({path:'post/detail?id='+val})
+    // }
   }
 };
 </script>
@@ -77,10 +83,13 @@ export default {
   }
   width: 700px;
   margin: 0 30px 0 170px;
-  span {
-    img:nth-child(1) {
-      width: 700px;
-    }
+  // span {
+  //   img:nth-child(1) {
+  //     width: 700px;
+  //   }
+  // }
+  img{
+    width:100%;
   }
   h2,
   h3,
@@ -88,6 +97,7 @@ export default {
     padding: 5px 0;
   }
 }
+
 .title {
   height: 121px;
   width: 100%;
@@ -96,7 +106,7 @@ export default {
 .time {
   color: rgb(166, 153, 153);
   padding: 20px 0;
-  margin-left: 400px;
+  margin-left: 200px;
 }
 .strategy {
   width: 280px;

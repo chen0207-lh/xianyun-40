@@ -1,8 +1,8 @@
-// export const state = () => ({
-//   postList: []
-// })
-// export const mutations = {
-//   SearchClick(state, data) {
-//     state.postList = data
-//   }
-// }
+export const state = () => ({
+    DraftsList: []
+})
+export const mutations = {
+    setDrafts(state, data) {
+    state.DraftsList = data
+  }
+}
